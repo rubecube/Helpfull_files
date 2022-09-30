@@ -1,0 +1,6 @@
+Location of the ISO that you can use 
+- /mnt/pve/Local-All/template/iso/
+
+
+
+you can also check the OVA shell for location of information 
