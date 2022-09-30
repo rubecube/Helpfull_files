@@ -1,0 +1,56 @@
+# This example requires the 'message_content' privileged intent to function.
+ 
+import discord
+from discord.ext import commands
+ 
+import random
+ 
+ 
+bot = commands.Bot(command_prefix='!')
+ 
+@bot.event
+async def on_ready():
+    print (f'{bot.user.name} has connected to Discord')
+    print ('----Running----')
+ 
+@bot.command(brief='returns "Hello World"')
+async def test(ctx):
+    await ctx.send('Hello World')
+ 
+@bot.command(name='write', brief='write <argument> "input the topic you want to write')
+async def _write(ctx, arg):
+    await ctx.send(f'Writing {arg} with all info ')
+ 
+@bot.command(name='random', brief='give you an number betweek 1-100')
+async def _random(ctx):
+    await ctx.send(random.randint(1,100)) 
+ 
+ 
+bot.run("KEY")
+ 
+import os
+import openai
+#openai.organization = "school"
+openai.api_key = "kEY"
+ 
+ 
+# list engines
+engines = openai.Engine.list()
+ 
+# print the first engine's id
+#print(engines)
+ 
+#enginPick = 'text-davinci-002'
+enginPick = 'text-ada-001'
+## Example ''' Write an email to a colleague named Jill congratulating her on her promotion. The tone should be warm yet professional. Mention how you admire the work she's been putting in.  Include a joke about how her pet lizard Max enjoys eating grasshoppers. Mention how you're looking forward to the team off-site next week.'''
+ 
+#message = ''' Write how wondefull being a Engineer Student answering a question of why they choise to study Engineering. The tone should be warm yet professional.'''
+message = '''Tell me a story of an how wonder full it is to be an Engineering Student. Learning about how the world works and wanting to build new thing with that knowledge. The long night of studing trying to understand the problems given. The tone should be warm yet professional. '''
+ 
+messLen = 600 # TOKENS USED
+ 
+# create a completion
+completion = openai.Completion.create(engine=enginPick, prompt=message, max_tokens=messLen)
+ 
+# print the completion
+print(completion.choices[0].text)
